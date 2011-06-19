@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<family name="TEST" fatherFamily="TAGADA" title="testounet" version="0.1"
+    xmlns="http://www.dynacase.org/XSD/xmlToCsvFamily"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.dynacase.org/XSD/xmlToCsvFamily simpleFamily.xsd ">
+    <properties>
+        <property name="PROP">property</property>
+    </properties>
+    <attributes>
+        <attribute name="POUET" type="frame">
+            <properties>
+                <inTitle>true</inTitle>
+            </properties>
+            <children>
+                <attribute name="FILSDEPOUET" type="docid">
+                    <properties>
+                        <typeModifier><![CDATA[IUSER]]></typeModifier>
+                        <defaultValue><![CDATA[Du contenu    p  ]]></defaultValue>
+                        <options>
+                            <option name="enum"><![CDATA[testounet]]></option>
+                            <option name="whatisthat"><![CDATA[toutout]]></option>
+                        </options>
+                    </properties>
+                </attribute>
+            </children>
+        </attribute>
+    </attributes>
+</family>

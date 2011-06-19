@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" targetNamespace="http://www.dynacase.org/XSD/xmlToCsvFamily"
+    xmlns:dcp.csv="http://www.dynacase.org/XSD/xmlToCsvFamily"
+    xmlns:dcp.bsc="http://www.dynacase.org/XSD/">
+
+    <xsd:simpleType name="logicalName">
+        <xsd:restriction base="xsd:ID">
+            <xsd:whiteSpace value="collapse" />
+            <xsd:pattern value="[A-Z][0-9A-Z_]{0,63}" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="logicalNameReference">
+        <xsd:restriction base="xsd:token">
+            <xsd:whiteSpace value="collapse" />
+            <xsd:pattern value="[0-9A-Z_]{0,63}" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="elementType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="array" />
+            <xsd:enumeration value="color" />
+            <xsd:enumeration value="date" />
+            <xsd:enumeration value="docid" />
+            <xsd:enumeration value="double" />
+            <xsd:enumeration value="file" />
+            <xsd:enumeration value="frame" />
+            <xsd:enumeration value="htmltext" />
+            <xsd:enumeration value="image" />
+            <xsd:enumeration value="integer" />
+            <xsd:enumeration value="longtext" />
+            <xsd:enumeration value="money" />
+            <xsd:enumeration value="password" />
+            <xsd:enumeration value="tab" />
+            <xsd:enumeration value="text" />
+            <xsd:enumeration value="time" />
+            <xsd:enumeration value="timestamp" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="visibility">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="W" />
+            <xsd:enumeration value="R" />
+            <xsd:enumeration value="H" />
+            <xsd:enumeration value="O" />
+            <xsd:enumeration value="U" />
+            <xsd:enumeration value="S" />
+            <xsd:enumeration value="I" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:attributeGroup name="elementAttributes">
+        <xsd:attribute name="name" type="dcp.csv:logicalName"
+            use="required" />
+        <xsd:attribute name="type" type="dcp.csv:elementType" />
+        <xsd:attribute name="visibility" type="dcp.csv:visibility" />
+        <xsd:attribute name="isHeritated" type="xsd:boolean" />
+        <xsd:attribute name="ord" type="xsd:integer" />
+    </xsd:attributeGroup>
+
+    <xsd:complexType name="option">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="name"
+                    type="xsd:string" use="required" />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:group name="properties">
+        <xsd:sequence>
+            <xsd:element name="label" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="typeModifier" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="inTitle" type="xsd:boolean"
+                minOccurs="0" />
+            <xsd:element name="inAbstract" type="xsd:boolean"
+                minOccurs="0" />
+            <xsd:element name="needed" type="xsd:boolean"
+                minOccurs="0" />
+            <xsd:element name="link" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="phpFile" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="phpFunc" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="elink" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="constraint" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="defaultValue" type="xsd:string"
+                minOccurs="0" />
+            <xsd:element name="options" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="option" type="dcp.csv:option" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="attributeElement">
+        <xsd:sequence>
+            <xsd:element name="properties" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:group ref="dcp.csv:properties" />
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="children" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="attribute">
+                            <xsd:complexType>
+                                <xsd:group ref="dcp.csv:attributeElement" />
+                                <xsd:attributeGroup
+                                    ref="dcp.csv:elementAttributes" />
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="parameterElement">
+        <xsd:sequence>
+            <xsd:element name="properties" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:group ref="dcp.csv:properties" />
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="children" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="parameter">
+                            <xsd:complexType>
+                                <xsd:group ref="dcp.csv:parameterElement" />
+                                <xsd:attributeGroup
+                                    ref="dcp.csv:elementAttributes" />
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+
+    <xsd:element name="family">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="properties" minOccurs="1"
+                    maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="property"
+                                type="dcp.csv:option" minOccurs="0"
+                                maxOccurs="unbounded" />
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="attributes" minOccurs="0"
+                    maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence minOccurs="0"
+                            maxOccurs="unbounded">
+                            <xsd:element name="attribute">
+                                <xsd:complexType>
+                                    <xsd:group
+                                        ref="dcp.csv:attributeElement" />
+                                    <xsd:attributeGroup
+                                        ref="dcp.csv:elementAttributes" />
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="parameters" minOccurs="0"
+                    maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence minOccurs="0"
+                            maxOccurs="unbounded">
+                            <xsd:element name="parameter">
+                                <xsd:complexType>
+                                    <xsd:group
+                                        ref="dcp.csv:parameterElement" />
+                                    <xsd:attributeGroup
+                                        ref="dcp.csv:elementAttributes" />
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="name" type="dcp.csv:logicalName"
+                use="required" />
+            <xsd:attribute name="fatherFamily" type="dcp.csv:logicalNameReference" />
+            <xsd:attribute name="title" type="xsd:token" />
+            <xsd:attribute name="version" type="xsd:float"
+                default="0.1" />
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
