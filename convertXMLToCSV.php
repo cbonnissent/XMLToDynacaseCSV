@@ -197,8 +197,6 @@ class convertXMLToCSV
                 /*@var $currentProperty DOMElement */
                 foreach ( $currentChild->childNodes as $currentProperty ) {
                     /*@var $currentProperty DOMElement */
-                    echo $currentProperty->nodeType . "\n";
-                    echo $currentProperty->nodeName . "\n";
                     if ($currentProperty->nodeType == 1) {
                         if ($currentProperty->nodeName != "options") {
                             $currentProperties[$currentProperty->nodeName] = $currentProperty->textContent;
@@ -233,6 +231,8 @@ class convertXMLToCSV
         if (isset($currentProperties["typeModifier"]) && isset($currentLine[6])) {
             $currentLine[6] = sprintf('%s("%s")', $currentLine[6], $currentProperties["typeModifier"]);
         }
+        
+        ksort($currentLine);
         
         $this->csvArray[] = $currentLine;
         
