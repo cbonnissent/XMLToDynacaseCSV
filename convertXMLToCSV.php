@@ -185,7 +185,7 @@ class convertXMLToCSV
         $currentLine = array();
         $currentProperties = array();
         $childrenNode = false;
-        $currentLine[0] = $elementRoot->attributes->getNamedItem("isHeritated") == "true" ? "MOD" . $currentPrefixe : $currentPrefixe;
+        $currentLine[0] = $elementRoot->attributes->getNamedItem("isHeritated") && ($elementRoot->attributes->getNamedItem("isHeritated")->textContent == "true") ? "MOD" . $currentPrefixe : $currentPrefixe;
         $currentLine[1] = $elementRoot->attributes->getNamedItem("name")->textContent;
         $currentLine[2] = $fatherName;
         $currentLine[6] = $elementRoot->attributes->getNamedItem("type") ? $elementRoot->attributes->getNamedItem("type")->textContent : "";
